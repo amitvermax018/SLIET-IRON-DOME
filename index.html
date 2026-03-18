@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLIET IRON DOME | Warrior Portal</title>
+</head>
+<body style="background-color: #27363d; color: #e0e0e0; font-family: 'Arial Black', Gadget, sans-serif; margin: 0; padding: 20px;">
+
+    <marquee bgcolor="#ff0000" style="color: white; font-weight: bold; padding: 12px; font-size: 22px; border-bottom: 2px solid white;">
+        WARRIOR ALERT: IRON DOME IS AT 90% CAPACITY. ONLY 5 SLOTS LEFT FOR THE 'ELITE BEAST' TIER. REGISTER OR STAY WEAK!
+    </marquee>
+
+    <header align="center" style="padding: 40px 0;">
+        <h1 style="font-size: 60px; color: #ff0000; margin: 0; text-shadow: 3px 3px #333;">SLIET IRON DOME</h1>
+        <p style="font-size: 22px; letter-spacing: 3px;"><strong>"STOP COMPLAINING. START GRINDING."</strong></p>
+        <p><i>The Most Aggressive Fitness Ecosystem for Electrical Engineering Warriors</i></p>
+        <hr color="#ff0000" width="60%">
+    </header>
+
+    <main style="max-width: 1100px; margin: auto;">
+
+        <section id="registration">
+            <h2 style="color: #ff0000; border-left: 10px solid #ff0000; padding-left: 15px;">ENTER THE ARENA</h2>
+            <form action="/submit-beast" method="POST">
+                <fieldset style="border: 2px solid #ff0000; padding: 25px; background-color: #111;">
+                    <legend style="color: #ff0000; font-size: 20px;"><b>WARRIOR IDENTITY</b></legend>
+                    <br>
+                    <label>Battle Name:</label>>
+                    <input type="text" name="fname" placeholder="Your Name, Warrior" required style="padding: 8px; width: 250px;">
+                    <br><br>
+                    <label>Roll Number:</label>
+                    <input type="text" name="rollno" placeholder="Your Roll Number" required style="padding: 8px; width: 250px;">
+                    <br><br>
+                    <label>Age:</label>
+                    <select name="age" style="padding: 8px;">
+                        <option value="">Select Age</option>
+                        <option value=>18</option>
+                        <option value=>23</option>
+                        <option value=>28+</option>
+                        <option value=>30+</option>
+                        <option value=>35+</option>
+                        <option value=>40+</option>
+                        <option value=>45+</option>
+                        <option value=>50+</option>
+
+                    </select>
+                    <br><br>
+
+                    <label>Date of Birth:</label>
+                    <input type="date" name="dob" required style="padding: 8px;">
+                    <br><br>
+
+                    <label>Warrior Gender:</label>
+                    <select name="gender" style="padding: 8px;">
+                    <options>
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+
+                    <br><br>
+
+                    <fieldset style="border: 2px solid #ff0000; padding: 25px; background-color: #111;">
+    <legend style="color: #ff0000; font-size: 20px;"><b>WARRIOR LOCATION (ALL INDIA)</b></legend>
+    <br>
+
+    <label for="state">Select State:</label>
+    <select id="state" name="state" style="padding: 10px; width: 280px; background: #222; color: white;" onchange="loadDistricts()">
+        <option value="">-- Loading States... --</option>
+    </select>
+    
+    <br><br>
+
+    <label for="district">Select District:</label>
+    <select id="district" name="district" style="padding: 10px; width: 280px; background: #222; color: white;">
+        <option value="">-- Select State First --</option>
+    </select>
+</fieldset>
+
+<script>
+// India ke saare States aur Districts ka Data (Simplified API Logic)
+const indiaData = {
+    "Andhra Pradesh": ["Anantapur", "Chittoor", "East Godavari", "Guntur", "Krishna"],
+    "Arunachal Pradesh": ["Tawang", "West Kameng", "East Kameng"],
+    "Assam": ["Baksa", "Barpeta", "Biswanath"],
+    "Bihar": ["Araria", "Arwal", "Aurangabad", "Patna", "Gaya"],
+    "Chhattisgarh": ["Bastar", "Bijapur", "Bilaspur"],
+    "Goa": ["North Goa", "South Goa"],
+    "Gujarat": ["Ahmedabad", "Amreli", "Anand"],
+    "Haryana": ["Ambala", "Bhiwani", "Faridabad"],
+    "Himachal Pradesh": ["Bilaspur", "Chamba", "Hamirpur"],
+    "Jharkhand": ["Bokaro", "Chatra", "Deoghar"],
+    "Karnataka": ["Bagalkot", "Ballari", "Belagavi"],
+    "Kerala": ["Alappuzha", "Ernakulam", "Idukki"],
+    "Madhya Pradesh": ["Agar Malwa", "Alirajpur", "Anuppur"],
+    "Maharashtra": ["Ahmednagar", "Akola", "Amravati", "Mumbai"],
+    "Manipur": ["Bishnupur", "Chandel", "Churachandpur"],
+    "Meghalaya": ["East Garo Hills", "East Jaintia Hills"],
+    "Mizoram": ["Aizawl", "Champhai", "Kolasib"],
+    "Nagaland": ["Dimapur", "Kiphire", "Kohima"],
+    "Odisha": ["Angul", "Balangir", "Balasore"],
+    "Punjab": ["Amritsar", "Barnala", "Bathinda", "Sangrur", "Ludhiana", "Patiala"],
+    "Rajasthan": ["Ajmer", "Alwar", "Banswara"],
+    "Sikkim": ["East Sikkim", "North Sikkim"],
+    "Tamil Nadu": ["Ariyalur", "Chennai", "Coimbatore"],
+    "Telangana": ["Adilabad", "Bhadradri Kothagudem"],
+    "Tripura": ["Dhalai", "Gomati", "Khowai"],
+    "Uttar Pradesh": ["Gonda", "Lucknow", "Kanpur", "Varanasi", "Ayodhya", "Basti"],
+    "Uttarakhand": ["Almora", "Bageshwar", "Chamoli"],
+    "West Bengal": ["Alipurduar", "Bankura", "Birbhum"],
+    "Delhi": ["Central Delhi", "East Delhi", "New Delhi"]
+};
+
+// Page load hote hi States ko select box mein daalna
+window.onload = function() {
+    const stateSelect = document.getElementById("state");
+    stateSelect.innerHTML = "<option value=''>-- Select State --</option>";
+    for (let state in indiaData) {
+        stateSelect.options[stateSelect.options.length] = new Option(state, state);
+    }
+};
+
+// State select karne par Districts update karna
+function loadDistricts() {
+    const stateSelect = document.getElementById("state");
+    const districtSelect = document.getElementById("district");
+    const selectedState = stateSelect.value;
+
+    districtSelect.innerHTML = "<option value=''>-- Select District --</option>";
+
+    if (selectedState && indiaData[selectedState]) {
+        indiaData[selectedState].forEach(district => {
+            districtSelect.options[districtSelect.options.length] = new Option(district, district);
+        });
+    }
+}
+</script>
+
+                    <br><br>
+                    <lable>Personal Details:</lable><br>
+                    <input type="text" name="fname" placeholder="Father's Name" style="padding: 8px; width: 250px;">
+                    <input type="text" name="mname" placeholder="Mother's Name" style="padding: 8px; width: 250px;">
+                    <input type="text" name="contact" placeholder="Contact Number" style="padding: 8px; width: 250px;">
+                    <input type="email" name="email" placeholder="Email Address" style="padding: 8px; width: 250px;">
+                    <input type="text" name="emergency" placeholder="Emergency Contact" style="padding: 8px; width: 250px;">
+                    <br><br>
+                    <label><b>CHOOSE YOUR WEAPONS:</b></label><br>
+                    <select name="weapons" style="padding: 8px; width: 300px;">
+                        <option value="barbell">Barbell</option>
+                        <option value="dumbbell">Dumbbell</option>
+                        <option value="kettlebell">Kettlebell</option>
+                        <option value="resistance_bands">Resistance Bands</option>
+                        <option value="bodyweight">Bodyweight</option>
+                    </select>
+                    <br><br>
+                    <label>Main Lift:</label>
+                    <select name="lift" style="padding: 8px;">
+                        <option value="">Select Main Lift</option>
+                        <option value="deadlift">Deadlift</option>
+                        <option value="bench">Bench Press</option>
+                        <option value="squat">Squat</option>
+                    </select>
+
+                    <br><br>
+                    <label>DESCRIBE YOUR HUNGER FOR SUCCESS:</label><br>
+                    <textarea rows="4" style="width: 100%; background-color: #222; color: white; border: 1px solid #ff0000; padding: 10px;"></textarea>
+                    
+                    <br><br>
+                    <button type="submit" style="background-color: #ff0000; color: white; padding: 15px 40px; font-weight: bold; border: none; cursor: pointer; font-size: 18px;">I AM READY TO GRIND</button>
+                </fieldset>
+            </form>
+        </section>
+
+        <br><hr color="#333"><br>
+
+        <section id="members">
+            <h2 style="color: #ff0000; border-left: 10px solid #ff0000; padding-left: 15px;">THE HALL OF POWER (LEADERBOARD)</h2>
+            <table border="1" width="100%" cellpadding="12" cellspacing="0" style="border-color: #ff0000; text-align: center; background-color: #111; color: white;">
+                <caption><strong style="color: #ff0000;">B.Tech Electrical Engineering - Battle Readiness</strong></caption>
+                <thead>
+                    <tr bgcolor="#ff0000" style="color: white; font-weight: bold;">
+                        <th>Rank</th><th>Roll No</th><th>Warrior Name</th><th>Main Lift</th><th>Max PB (kg)</th><th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>253050015</td><td>Amit Verma</td><td>Deadlift</td><td>120</td><td><b>WARRIOR</b></td></tr>
+                    <tr><td>2</td><td>253050014</td><td>Anshuman Pandey</td><td>Bench Press</td><td>50</td><td><b>BEAST</b></td></tr>
+                    <tr><td>3</td><td>253050001</td><td>Anuj</td><td>Deadlift</td><td>180</td><td><b>ELITE</b></td></tr>
+                    <tr><td>4</td><td>253050002</td><td>Ishan</td><td>Deadlift</td><td>150</td><td>WARRIOR</td></tr>
+                    <tr><td>5</td><td>253050003</td><td>Abhishek</td><td>Bench Press</td><td>40</td><td>WARRIOR</td></tr>
+                    <tr><td>6</td><td>253050004</td><td>Harish</td><td>Squat</td><td>130</td><td>WARRIOR</td></tr>
+                    <tr><td>7</td><td>253050005</td><td>Sanjay</td><td>Deadlift</td><td>155</td><td><b>BEAST</b></td></tr>
+
+                    <tr><td>8</td><td>253050006</td><td>Eknoor</td><td>Bench Press</td><td>40</td><td>RECRUIT</td></tr>
+
+                    <tr><td>9</td><td>253050007</td><td>Girvit</td><td>Squat</td><td>145</td><td>WARRIOR</td></tr>
+                    <tr><td>10</td><td>253050008</td><td>Aasif</td><td>Deadlift</td><td>135</td><td>WARRIOR</td></tr>
+                    <tr><td>11</td><td>253050009</td><td>Dikshant</td><td>Bench Press</td><td>110</td><td><b>BEAST</b></td></tr>
+                    <tr><td>12</td><td>253050010</td><td>Krishna</td><td>Squat</td><td>125</td><td>WARRIOR</td></tr>
+                    <tr><td>13</td><td>253050011</td><td>Praveen</td><td>Deadlift</td><td>160</td><td><b>BEAST</b></td></tr>
+                    <tr><td>14</td><td>253050012</td><td>Vinayak</td><td>Bench Press</td><td>85</td><td>RECRUIT</td></tr>
+                    <tr><td>15</td><td>253050013</td><td>Apruba</td><td>Squat</td><td>130</td><td>WARRIOR</td></tr>
+                    <tr><td>16</td><td>253050016</td><td>Vaibhav</td><td>Deadlift</td><td>145</td><td>WARRIOR</td></tr>
+                    <tr><td>17</td><td>253050017</td><td>Huto</td><td>Bench Press</td><td>105</td><td>WARRIOR</td></tr>
+                    <tr><td>18</td><td>253050018</td><td>Shaurya</td><td>Squat</td><td>140</td><td>WARRIOR</td></tr>
+                    <tr><td>19</td><td>253050019</td><td>Pratik</td><td>Deadlift</td><td>130</td><td>WARRIOR</td></tr>
+                    <tr><td>20</td><td>253050020</td><td>Shivam</td><td>Bench Press</td><td>115</td><td><b>BEAST</b></td></tr>
+                    <tr><td>21</td><td>253050021</td><td>Yashwant</td><td>Squat</td><td>110</td><td>RECRUIT</td></tr>
+                    <tr><td>22</td><td>253050022</td><td>Rohan</td><td>Deadlift</td><td>150</td><td>WARRIOR</td></tr>
+                    <tr><td>23</td><td>253050023</td><td>Piyush</td><td>Bench Press</td><td>90</td><td>RECRUIT</td></tr>
+                    <tr><td>24</td><td>253050024</td><td>Ankita</td><td>Squat</td><td>120</td><td>VALKYRIE</td></tr>
+                    <tr><td>25</td><td>253050025</td><td>Roshan</td><td>Deadlift</td><td>140</td><td>WARRIOR</td></tr>
+                    <tr><td>26</td><td>253050026</td><td>NIDHI</td><td>Bench Press</td><td>30</td><td>WARRIOR</td></tr>
+                    <tr bgcolor="#222"><td colspan="5">TOTAL OPERATIONAL CAPACITY</td><td><b>26/50</b></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <br><hr color="#333"><br>
+
+        <section id="diet-rules">
+            <h2 style="color: #ff0000; border-left: 10px solid #ff0000; padding-left: 15px;">THE IRON DIET: NO WEAKNESS</h2>
+            <ul style="list-style-type: square; line-height: 2; font-size: 18px;">
+                <li><strong>PROTEIN DOMINANCE:</strong> Minimum 2g/kg Bodyweight.</li>
+                <li><strong>ZERO LIQUID TRASH:</strong> Water is your only fuel. No Sodas.</li>
+                <li><strong>HOSTEL SURVIVAL:</strong> Extra Eggs & Paneer at the SLIET Mess.</li>
+                <li><strong>FUEL TIMING:</strong> Pre-Workout Black Coffee at 5 PM sharp.</li>
+            </ul>
+        </section>
+
+        <br><hr color="#333"><br>
+
+        <section id="power-status">
+            <h2 style="color: #ff0000; border-left: 10px solid #ff0000; padding-left: 15px;">⚡ LIVE POWER GRID STATUS</h2>
+            <table border="1" width="100%" cellpadding="10" style="border-color: #ff0000; background-color: #111; color: white; text-align: center;">
+                <tr bgcolor="#333"><th>Appliance</th><th>Daily Usage</th><th>Monthly Bill (₹)</th></tr>
+                <tr><td>Industrial AC Units</td><td>12 Hours</td><td>₹8,820</td></tr>
+                <tr><td>Heavy Treadmills</td><td>10 Hours</td><td>₹4,200</td></tr>
+                <tr><td>LED Floodlights</td><td>14 Hours</td><td>₹2,058</td></tr>
+                <tr bgcolor="#ff0000"><td><strong>TOTAL GRID COST</strong></td><td><strong>36 Hours Combined</strong></td><td><strong>₹15,078</strong></td></tr>
+            </table>
+            <p align="right"><small><i>*Calculated via Iron Dome Python Backend (Unit Rate: ₹7)</i></small></p>
+        </section>
+
+        <br><hr color="#333"><br>
+
+        <section id="media" align="center">
+            <h2 style="color: #ff0000;">VIRTUAL TOUR & BASE LOCATION</h2>
+            <video width="30%" height="200" controls style="border: 4px solid #ff0000; box-shadow: 0 0 20px #ff0000;">
+                <source src="SLIET College .mp4" type="video/mp4">
+            </video>
+            <br><br>
+            <iframe src="https://www.google.com/maps/embed?pb=example" width="30%" height="200" style="border: 4px solid #ff0000; box-shadow: 0 0 20px #ff0000;"></iframe>
+        </section>
+
+    </main> 
+
+    <section>
+            <h2 style="color: #ff0000;"> Created By </h2>
+            <p style="font-size: 18px; color: #4c7be2;">Amit Verma | B.Tech Electrical Engineering | SLIET-Longwal Punjab 2025-29</p>
+        </section>
+    <img src="WhatsApp Image 2026-03-17 at 22.40.26.jpeg" alt="This is Amit Verma" width="24%"
+    height="60%" style="margin-top: 50px; border: 4px solid #0e76bb; box-shadow: 0 0 30px #0ee3dc;">
+
+    <footer align="center" style="background-color: #222421; padding: 40px; margin-top: 50px; border-top: 2px solid #ff0000;">
+        
+            <strong style="color: #2a68b4dc;">Electrical Engineering Warrior</strong></p>
+        <p>SLIET Punjab - Batch 2025-29</p>
+        <a href="https://instagram.com/amit_x018" style="color: #3e749c;">Instagram</a> | 
+        <a href="https://linkedin.com/in/amitverma" style="color: #4c6b9e;">LinkedIn</a>
+        <h4>About Me
+
+Hi, I’m Amit Verma. I’m passionate about learning, growth, and creating meaningful work. I enjoy exploring new ideas and always strive to give my best.</h4>
+<h5>
+I’m currently pursuing a B.Tech in Electrical Engineering at SLIET, Longwal Punjab, and I’m excited to connect with like-minded individuals who share my enthusiasm for technology and innovation.</h5>
+<section>
+    <p>contact me at: <a href="mailto:amitverma11832@gmail.com" style="color: #00d0ff;">amitverma11832@gmail.com</a></p></section>
+    <main>
+
+    <footer>
+        <a href="#">FAQ</a> |
+        <a href="#">contact</a>
+        <a href="#">Terms of Use</a> |
+        <a href="#">Privacy Policy</a>
+        <a href="#">Rufund Policy</a>
+        <a href="#">&copy; 2026 SLIET IRON DOME. All rights reserved.</a>
+    </footer>
+    
+
+</body>
+</html>
